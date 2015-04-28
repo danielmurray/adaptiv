@@ -8,6 +8,7 @@ import java.util.Date;
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.*;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.widget.ListView;
@@ -40,6 +41,9 @@ public class MainActivity extends Activity implements SensorEventListener {
     private Context context;
 
     private SensorManager sensorManager;
+    private LocationManager locationManager;
+
+    private GPSListener gpsListener;
 
     private boolean collecting = false;
 
@@ -84,6 +88,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         context = getApplicationContext();
 
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
         listView = (ListView) findViewById(R.id.data_list);
         button = (Button) findViewById(R.id.button);
 
@@ -106,6 +112,10 @@ public class MainActivity extends Activity implements SensorEventListener {
                     gravFile.close();
                     stepFile.close();
 
+                    if(locationManager.getAllProviders().size()!=0) {
+                        locationManager.removeUpdates(gpsListener);
+                    }
+
                 }else{
                     //Begin data stream to CSV file
                     collecting = true;
@@ -127,6 +137,10 @@ public class MainActivity extends Activity implements SensorEventListener {
                     gravFile = new FileIO(dirName, grFileName, context);
                     stepFile = new FileIO(dirName, sFileName, context);
 
+                    if(locationManager.getAllProviders().size()!=0) {
+                        gpsListener = new GPSListener(context);
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 3, gpsListener);
+                    }
                 }
             }
         });
