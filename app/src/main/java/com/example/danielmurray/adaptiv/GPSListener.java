@@ -1,8 +1,9 @@
-package com.example.danielmurray.bushu;
+package com.example.danielmurray.adaptiv;
 
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationProvider;
 import android.os.Bundle;
 
 import java.text.SimpleDateFormat;
@@ -18,8 +19,11 @@ public class GPSListener implements LocationListener {
 
     protected long startTime;
     protected FileIO gpsFile;
+    protected MainActivity activity;
 
-    public GPSListener(Context context) {
+    public GPSListener(Context context, MainActivity activity) {
+        this.activity = activity;
+
         startTime = getCurrentTime();
 
         Date date = new Date();
@@ -36,11 +40,18 @@ public class GPSListener implements LocationListener {
     public void onLocationChanged(Location location) {
         long timeElapsed = getCurrentTime();
         gpsFile.writeLine(timeElapsed + "," + location.getLatitude() + "," + location.getLongitude());
+        activity.setGPSStatus("Connected");
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
+        if(status == LocationProvider.AVAILABLE) {
+            activity.setGPSStatus("Connected");
+        } else if (status == LocationProvider.OUT_OF_SERVICE) {
+            activity.setGPSStatus("No Connection");
+        } else if (status == LocationProvider.TEMPORARILY_UNAVAILABLE) {
+            activity.setGPSStatus("No Connection");
+        }
     }
 
     @Override

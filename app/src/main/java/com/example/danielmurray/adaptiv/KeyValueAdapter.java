@@ -1,4 +1,4 @@
-package com.example.danielmurray.bushu;
+package com.example.danielmurray.adaptiv;
 
 import android.content.Context;
 import android.view.LayoutInflater;

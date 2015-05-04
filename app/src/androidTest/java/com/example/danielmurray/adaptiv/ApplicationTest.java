@@ -1,4 +1,4 @@
-package com.example.danielmurray.bushu;
+package com.example.danielmurray.adaptiv;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

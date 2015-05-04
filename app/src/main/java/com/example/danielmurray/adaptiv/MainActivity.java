@@ -1,8 +1,9 @@
-package com.example.danielmurray.bushu;
+package com.example.danielmurray.adaptiv;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
@@ -10,14 +11,9 @@ import android.content.Context;
 import android.hardware.*;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.widget.ListView;
 import android.widget.Button;
-import android.util.Log;
 import android.view.View;
-
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity implements SensorEventListener {
 
@@ -25,12 +21,14 @@ public class MainActivity extends Activity implements SensorEventListener {
     private KeyValueObj yObj = new KeyValueObj("Y","10");
     private KeyValueObj zObj = new KeyValueObj("Z","100");
     private KeyValueObj ourStepObj = new KeyValueObj("Our Steps","10000");
+    private KeyValueObj gpsStatusObj = new KeyValueObj("GPS Status","No Connection");
 
     private ArrayList<KeyValueObj> keyValueObjList = new ArrayList<KeyValueObj>(Arrays.asList(new KeyValueObj[]{
             xObj,
             yObj,
             zObj,
-            ourStepObj
+            ourStepObj,
+            gpsStatusObj
     }));
 
     private KeyValueAdapter adapter;
@@ -52,6 +50,10 @@ public class MainActivity extends Activity implements SensorEventListener {
     private FileIO laFile;
     private FileIO gravFile;
     private FileIO stepFile;
+
+    private long getCurrentTime() {
+        return Calendar.getInstance().getTimeInMillis();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,8 +149,10 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     }
 
+
     @Override
     public void onSensorChanged(SensorEvent event) {
+        long timeElapsed = getCurrentTime();
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
             double x = event.values[0];
             double y = event.values[1];
@@ -161,7 +165,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             adapter.notifyDataSetChanged();
 
             if(collecting){
-                String line = String.valueOf(event.timestamp) + ',' + x + ',' + y + ',' + z;
+                String line = String.valueOf(timeElapsed) + ',' + String.valueOf(event.timestamp) + ',' + x + ',' + y + ',' + z;
                 accelFile.writeLine(line);
             }
 
@@ -171,7 +175,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             double z = event.values[2];
 
             if(collecting){
-                String line = String.valueOf(event.timestamp) + ',' + x + ',' + y + ',' + z;
+                String line = String.valueOf(timeElapsed) + ',' + String.valueOf(event.timestamp) + ',' + x + ',' + y + ',' + z;
                 gyroFile.writeLine(line);
             }
 
@@ -181,7 +185,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             double z = event.values[2];
 
             if(collecting){
-                String line = String.valueOf(event.timestamp) + ',' + x + ',' + y + ',' + z;
+                String line = String.valueOf(timeElapsed) + ',' + String.valueOf(event.timestamp) + ',' + x + ',' + y + ',' + z;
                 laFile.writeLine(line);
             }
 
@@ -192,7 +196,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             adapter.notifyDataSetChanged();
 
             if(collecting){
-                String line = String.valueOf(event.timestamp) + ',' + steps;
+                String line = String.valueOf(timeElapsed) + ',' + String.valueOf(event.timestamp) + ',' + steps;
                 stepFile.writeLine(line);
             }
         }else if(event.sensor.getType() == Sensor.TYPE_GRAVITY){
@@ -201,7 +205,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             double z = event.values[2];
 
             if(collecting){
-                String line = String.valueOf(event.timestamp) + ',' + x + ',' + y + ',' + z;
+                String line = String.valueOf(timeElapsed) + ',' + String.valueOf(event.timestamp) + ',' + x + ',' + y + ',' + z;
                 gravFile.writeLine(line);
             }
         }
@@ -210,5 +214,9 @@ public class MainActivity extends Activity implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // TODO Auto-generated method stub
+    }
+
+    public void setGPSStatus(String status){
+        gpsStatusObj.setValue(status);
     }
 }

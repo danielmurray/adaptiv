@@ -1,4 +1,4 @@
-package com.example.danielmurray.bushu;
+package com.example.danielmurray.adaptiv;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.io.BufferedReader;
 import android.os.Environment;
 import android.content.Context;
 import android.util.Log;
-import android.media.MediaScannerConnection;
+
 /**
  * Created by danielmurray on 2/22/15.
  */

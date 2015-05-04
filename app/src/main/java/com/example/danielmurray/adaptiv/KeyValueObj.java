@@ -1,4 +1,4 @@
-package com.example.danielmurray.bushu;
+package com.example.danielmurray.adaptiv;
 
 /**
  * Created by danielmurray on 2/20/15.
