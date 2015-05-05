@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.hardware.*;
 import android.location.LocationManager;
+import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Button;
@@ -32,6 +33,8 @@ public class MainActivity extends Activity implements SensorEventListener {
     }));
 
     private KeyValueAdapter adapter;
+
+    private MainActivity activity = this;
 
     private ListView listView;
     private Button button;
@@ -140,7 +143,7 @@ public class MainActivity extends Activity implements SensorEventListener {
                     stepFile = new FileIO(dirName, sFileName, context);
 
                     if(locationManager.getAllProviders().size()!=0) {
-                        gpsListener = new GPSListener(context);
+                        gpsListener = new GPSListener(context, activity);
                         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 3, gpsListener);
                     }
                 }
