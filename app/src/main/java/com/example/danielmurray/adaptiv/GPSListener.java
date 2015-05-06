@@ -20,6 +20,7 @@ public class GPSListener implements LocationListener {
     protected long startTime;
     protected FileIO gpsFile;
     protected MainActivity activity;
+    protected int count;
 
     public GPSListener(Context context, MainActivity activity) {
         this.activity = activity;
@@ -30,6 +31,7 @@ public class GPSListener implements LocationListener {
         String dateString = new SimpleDateFormat("yyyy-MM-dd_hh:mm:ss").format(date);
         String dirName = "/reading_"+dateString+"/";
         gpsFile = new FileIO(dirName, GPS_FILE_NAME, context);
+        count = 0;
     }
 
     private long getCurrentTime() {
@@ -40,7 +42,8 @@ public class GPSListener implements LocationListener {
     public void onLocationChanged(Location location) {
         long timeElapsed = getCurrentTime();
         gpsFile.writeLine(timeElapsed + "," + location.getLatitude() + "," + location.getLongitude());
-        activity.setGPSStatus("Connected");
+        count++;
+        activity.setGPSStatus("Connected " + count);
     }
 
     @Override
@@ -48,8 +51,10 @@ public class GPSListener implements LocationListener {
         if(status == LocationProvider.AVAILABLE) {
             activity.setGPSStatus("Connected");
         } else if (status == LocationProvider.OUT_OF_SERVICE) {
+            count = 0;
             activity.setGPSStatus("No Connection");
         } else if (status == LocationProvider.TEMPORARILY_UNAVAILABLE) {
+            count = 0;
             activity.setGPSStatus("No Connection");
         }
     }
@@ -62,5 +67,9 @@ public class GPSListener implements LocationListener {
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    public void closeFile(){
+        gpsFile.close();
     }
 }

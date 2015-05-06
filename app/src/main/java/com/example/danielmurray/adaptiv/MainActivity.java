@@ -118,6 +118,7 @@ public class MainActivity extends Activity implements SensorEventListener {
                     stepFile.close();
 
                     if(locationManager.getAllProviders().size()!=0) {
+                        gpsListener.closeFile();
                         locationManager.removeUpdates(gpsListener);
                     }
 
@@ -144,7 +145,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
                     if(locationManager.getAllProviders().size()!=0) {
                         gpsListener = new GPSListener(context, activity);
-                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 3, gpsListener);
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 2, gpsListener);
                     }
                 }
             }
