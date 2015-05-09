@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.danielmurray.adaptiv" >
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -12,8 +13,18 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.danielmurray.adaptiv.MainActivity"
-            android:label="@string/app_name" >
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="com.example.danielmurray.adaptiv.activity.RunningActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.danielmurray.adaptiv.activity.RunningActivity" />
+        </activity>
+        <activity
+            android:name=".activity.RunningActivity"
+            android:label="@string/title_activity_running">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

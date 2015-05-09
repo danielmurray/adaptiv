@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="15px"
+    android:paddingRight="15px"
+    style="@style/Base.TextAppearance.AppCompat.Headline">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Adaptiv "
+        android:id="@+id/brandText"
+        android:layout_gravity="center_horizontal"
+        style="@style/Base.TextAppearance.AppCompat.Headline" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="86dp"
+        android:paddingLeft="20px"
+        android:paddingRight="20px"
+        android:layout_marginTop="50px"
+        android:layout_marginBottom="50px">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Average Pace"
+                android:id="@+id/averagePaceLabel"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0:00/mile"
+                android:id="@+id/averagePaceText"
+                android:layout_gravity="center_horizontal"
+                android:textSize="48px" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Distance:"
+                android:id="@+id/distanceLabel"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0.00 mi"
+                android:id="@+id/distanceText"
+                android:layout_gravity="center_horizontal"
+                android:textSize="48px" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Current Pace"
+        android:id="@+id/currentPaceLabel"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0:00/mile"
+        android:id="@+id/currentPaceText"
+        android:layout_gravity="center_horizontal"
+        android:textSize="84px" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="GPS Status"
+            android:id="@+id/gpsStatusLabel"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="70px"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/gpsStatusText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Not Connected"
+            android:id="@+id/gpsStatusText"
+            android:layout_gravity="center_horizontal"
+            android:layout_above="@+id/btnStartStop"
+            android:layout_centerHorizontal="true" />
+
+        <ToggleButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="New ToggleButton"
+            android:id="@+id/btnStartStop"
+            android:layout_gravity="center_horizontal"
+            android:checked="false"
+            android:paddingLeft="30px"
+            android:paddingRight="30px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginBottom="10px"
+            android:layout_marginTop="30px"
+            android:textOff="Start Run"
+            android:textOn="Finish Run"
+            android:paddingTop="50px"
+            android:paddingBottom="50px"
+            android:layout_alignParentBottom="false"
+            android:layout_above="@+id/btnStartSensing"
+            android:onClick="startStop" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Sensor Data"
+            android:id="@+id/btnStartSensing"
+            android:layout_gravity="center_horizontal"
+            android:checked="false"
+            android:paddingLeft="30px"
+            android:paddingRight="30px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginBottom="30px"
+            android:textOff="Pause Run"
+            android:textOn="Resume Run"
+            android:paddingTop="50px"
+            android:paddingBottom="50px"
+            android:visibility="visible"
+            android:layout_alignParentBottom="true"
+            android:onClick="launchMain" />
+
+    </RelativeLayout>
+
+</LinearLayout>
