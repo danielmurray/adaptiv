@@ -34,6 +34,26 @@ def pull_data(dir_name, file_name):
 			rs.append(r)
 	return np.array(xs), np.array(ys), np.array(zs), np.array(rs), np.array(timestamps)
 
+def pull_data(dir_name, file_name):
+	f = open(dir_name + '/' + file_name + '.csv')
+	timestamps = []
+	rs = []
+	for line in f:
+		value = line.split(',')
+		if len(value) > 3:
+			x = float(value[2])
+			y = float(value[3])
+			z = float(value[4])
+			r = math.sqrt(x**2 + y**2 + z**2)
+			timestamp = {
+				"milli_ts":value[0],
+				"nano_ts":value[1],
+			}
+			timestamps.append(timestamp)
+			
+			rs.append(r)
+	return np.array(xs), np.array(ys), np.array(zs), np.array(rs), np.array(timestamps)
+
 if __name__ == '__main__':
 
 	if len(sys.argv) >= 3:
@@ -101,16 +121,18 @@ if __name__ == '__main__':
 
 	elif algo == "asjt":
 		# Adaptive Step Jerk Threshold
+		# Sliding average RTT implementation
 		jumps, avgs = asjt.adaptive_step_jerk_threshold(r, timestamps)
 		ts =  [jump['ts'] for jump in jumps]
 		val =  [jump['val'] for jump in jumps]
-		print "Adaptive Step Jerk Threshold Steps:", len(jumps)
+		print "Adaptive Step Jerk Threshold 2 Steps:", len(jumps)
 		print "Final Step Jerk Average:", avgs[-1][1]
 
 		plt.plot(timestamps, r, 'b-', linewidth=2)
 		plt.plot(ts, val, 'ro')
 		plt.plot(avgs.T[0], avgs.T[1], 'r--', linewidth=2)
-		plt.title(trial + " - Adaptive Step Jerk Threshold")
+		plt.plot(avgs.T[0], avgs.T[2], 'g--', linewidth=2)
+		plt.title(trial + " - Adaptive Step Jerk Threshold 2")
 		plt.xlabel('Time [sec]')
 		plt.grid()
 		plt.legend()
@@ -129,9 +151,11 @@ if __name__ == '__main__':
 		plt.plot(timestamps, r, 'b-', linewidth=2)
 		plt.plot(peak_ts, peak_val, 'go')
 		plt.plot(trough_ts, trough_val, 'ro')
-		plt.plot(middles.T[0], middles.T[1], 'yo', linewidth=2)
+		# plt.plot(middles.T[0], middles.T[1], 'yo', linewidth=2)
 		plt.plot(avgs.T[0], avgs.T[1], 'r--', linewidth=2)
-		plt.plot(avgs.T[0], avgs.T[2], 'g--', linewidth=2)
+		plt.plot(avgs.T[0], avgs.T[2], 'y--', linewidth=2)
+		plt.plot(avgs.T[0], avgs.T[3], 'g--', linewidth=2)
+		plt.plot(avgs.T[0], avgs.T[4], 'b--', linewidth=2)
 		plt.title(trial + " - Adaptive Step Jerk Threshold")
 		plt.xlabel('Time [sec]')
 		plt.grid()

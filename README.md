@@ -2,7 +2,7 @@ Adaptiv: An Adaptive Jerk Pace Buffer Step Detection Algorithm
 ===========
 
 - Dan Murray
-- Ryan Bolick
+- Ryan Bonick
 
 ##Abstract
 Mobile consumer technology today is equipped with a myriad of sophisticated sensors capable of measuring multiple environment variables. One of the most exciting sensors on most mobile devices today is the accelerometer, capable of measuring the device's proper acceleration, i.e. acceleration relative to free fall. Proper acceleration data has many uses in today's mobile applications ranging from, determining the device's orientation, gesture recognition, and detecting user movement, namely step detection. In this git repository we explore the use of android's raw accelerometer data in the application of step detection. Step detection has many uses in today's mobile computing field, including activity tracking as well as providing correction in indoor localization methods. Noticing this significance of accurate step detection, the goal of this repository was to explore a few algorithms in precise step detection.
@@ -14,7 +14,7 @@ In this repository we will introduce our algorithm, Adaptiv, an adaptive jerk pa
 In the app file you will find our Android app responsible for logging the accelerometer sensor data and writing that data out to CSV file in external storage. The application itself is a single activity dynamically being updated with the devices live accelerometer data. The bottom row is the Android built-in step detection sensor data, to serve as a reference. At the top is the button that initializes and terminates the trial collection.
 
 <p align="center">
-  <img src="https://raw.github.com/danielmurray/adaptiv/master/imgs/screenshot.png" />
+  <img src="https://raw.github.com/danielmurray/adaptiv/master/imgs/screenshot2.png" />
 </p>
 
 ##Filtering
@@ -113,7 +113,7 @@ bash$ python sensordata/main.py sjt data/walk/inHand/zhang
 We were right back to where we started, however we felt we were on to something. We figured if the step jerk could adapt to the user, and the situation, the algorithm would be better suited to count steps. So we developed a method to do just that...
 
 ###Adaptive Step Jerk Threshold
-The intuition of this method is to allow the algorithm to adapt to the user's gait. We accomplish this by dynamically updating a step jerk average threshold, *SJA*, each time a step is detected. A step being defined as a step jerk, *j*, greater than 65% of the *SJA*. *SJA* being defined as the step jerk sum, *SJS*, divided by the numer of step jerks, *i*.
+The intuition of this method is to allow the algorithm to adapt to the user's gait. We accomplish this by dynamically updating a step jerk average threshold, *SJA*, each time a step is detected. A step being defined as a step jerk, *j*, greater than 65% of the *SJA*. *SJA* being defined as the step jerk sum, *SJS*, divided by the number of step jerks, *i*.
 
 <p align="center">
   <img src="https://raw.github.com/danielmurray/adaptiv/master/imgs/condition.png" />
