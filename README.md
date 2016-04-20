@@ -240,5 +240,5 @@ Below we can see the results from tests taken from over a handful of different t
 
 
 ##Conclusion
-Obviously this work is fairly derivate and probably nowhere close to what the actual implementation is in consumer products today. However, I wanted to explored the metrics mobile device accelerometer data, and test out some methods for accurate step detection and accounting. 
+Obviously this work is fairly derivative and probably nowhere close to what the actual implementation is in consumer products today. However, I wanted to explored the metrics mobile device accelerometer data, and test out some methods for accurate step detection and accounting. 
 
