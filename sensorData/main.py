@@ -36,29 +36,7 @@ def pull_data(dir_name, file_name):
     return np.array(xs), np.array(ys), np.array(zs), np.array(rs), np.array(timestamps)
 
 
-def pull_data(dir_name, file_name):
-    f = open(dir_name + '/' + file_name + '.csv')
-    timestamps = []
-    rs = []
-    for line in f:
-        value = line.split(',')
-        if len(value) > 3:
-            x = float(value[2])
-            y = float(value[3])
-            z = float(value[4])
-            r = math.sqrt(x ** 2 + y ** 2 + z ** 2)
-            timestamp = {
-                "milli_ts": value[0],
-                "nano_ts": value[1],
-            }
-            timestamps.append(timestamp)
-
-            rs.append(r)
-    return np.array(xs), np.array(ys), np.array(zs), np.array(rs), np.array(timestamps)
-
-
 if __name__ == '__main__':
-
     if len(sys.argv) >= 3:
         algo = sys.argv[1]
         trial = sys.argv[2]
