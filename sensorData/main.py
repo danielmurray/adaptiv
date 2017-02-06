@@ -4,14 +4,14 @@ import sys
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-import androidSteps
-import lowPass as lp
-import peakAccelThreshold as pat
-import peakJerkThreshold as pjt
-import stepJerkThreshold as sjt
-import adaptiveStepJerkThreshold as asjt
-import adaptiveJerkPaceThreshold as ajpt
-import adaptiveJerkPaceBuffer as ajpb
+import sensorData.androidSteps as androidSteps
+import sensorData.lowPass as lp
+import sensorData.peakAccelThreshold as pat
+import sensorData.peakJerkThreshold as pjt
+import sensorData.stepJerkThreshold as sjt
+import sensorData.adaptiveStepJerkThreshold as asjt
+import sensorData.adaptiveJerkPaceThreshold as ajpt
+import sensorData.adaptiveJerkPaceBuffer as ajpb
 
 
 def pull_data(dir_name, file_name):
@@ -24,10 +24,10 @@ def pull_data(dir_name, file_name):
     for line in f:
         value = line.split(',')
         if len(value) > 3:
-            timestamps.append(float(value[0]))
-            x = float(value[1])
-            y = float(value[2])
-            z = float(value[3])
+            timestamps.append(float(value[-4]))
+            x = float(value[-3])
+            y = float(value[-2])
+            z = float(value[-1])
             r = math.sqrt(x ** 2 + y ** 2 + z ** 2)
             xs.append(x)
             ys.append(y)
@@ -98,7 +98,7 @@ if __name__ == '__main__':
 
     elif algo == 'pjt':
         # Peak Jerk Threshold
-        jerk = pjt.peak_jerk_threshold(r, timestamps)
+        jerk = pjt.derive(r, timestamps)
         plt.plot(jerk.T[0], jerk.T[1], 'g-', linewidth=2)
         plt.title(trial + " - Peak Jerk Threshold")
         plt.xlabel('Time [sec]')
