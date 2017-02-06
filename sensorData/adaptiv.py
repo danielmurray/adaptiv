@@ -3,8 +3,8 @@ from __future__ import print_function
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-import lowPass as lp
-import adaptivjpt as ajpt
+import sensorData.lowPass as lp
+import sensorData.adaptivjpt as ajpt
 from geopy.distance import vincenty, great_circle
 from sklearn.neighbors import KNeighborsClassifier
 

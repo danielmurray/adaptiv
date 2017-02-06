@@ -4,10 +4,10 @@ import os
 import math
 import numpy as np
 import lowPass as lp
-import peakAccelThreshold as pat
-import stepJerkThreshold as sjt
-import adaptiveStepJerkThreshold as asjt
-import adaptiveJerkPaceBuffer as ajpb
+import sensorData.peakAccelThreshold as pat
+import sensorData.stepJerkThreshold as sjt
+import sensorData.adaptiveStepJerkThreshold as asjt
+import sensorData.adaptiveJerkPaceBuffer as ajpb
 
 
 def fetch_files(file_path):
