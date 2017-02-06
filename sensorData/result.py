@@ -3,7 +3,7 @@ from __future__ import print_function
 import os
 import math
 import numpy as np
-import lowPass as lp
+import sensorData.lowPass as lp
 import sensorData.peakAccelThreshold as pat
 import sensorData.stepJerkThreshold as sjt
 import sensorData.adaptiveStepJerkThreshold as asjt
